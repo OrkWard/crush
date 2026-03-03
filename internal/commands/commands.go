@@ -100,8 +100,8 @@ func buildCommandSources(cfg *config.Config) []commandSource {
 		})
 	}
 
-	// Home directory (only if not disabled)
-	if !cfg.Options.DisableHomeDirCommands {
+	// Home directory (only if enabled)
+	if cfg.Options.EnableHomeDirCommands {
 		if home := home.Dir(); home != "" {
 			sources = append(sources, commandSource{
 				path:   filepath.Join(home, ".crush", "commands"),
