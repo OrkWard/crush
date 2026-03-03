@@ -261,6 +261,8 @@ type Options struct {
 	InitializeAs              string       `json:"initialize_as,omitempty" jsonschema:"description=Name of the context file to create/update during project initialization,default=AGENTS.md,example=AGENTS.md,example=CRUSH.md,example=CLAUDE.md,example=docs/LLMs.md"`
 	AutoLSP                   *bool        `json:"auto_lsp,omitempty" jsonschema:"description=Automatically setup LSPs based on root markers,default=true"`
 	Progress                  *bool        `json:"progress,omitempty" jsonschema:"description=Show indeterminate progress updates during long operations,default=true"`
+	DisableProjectInitPrompt  bool         `json:"disable_project_init_prompt,omitempty" jsonschema:"description=Disable the project initialization prompt on startup,default=true"`
+	DisableHomeDirCommands    bool         `json:"disable_home_dir_commands,omitempty" jsonschema:"description=Disable loading commands from ~/.crush/commands,default=true"`
 }
 
 type MCPs map[string]MCPConfig

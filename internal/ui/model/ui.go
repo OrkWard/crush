@@ -310,8 +310,10 @@ func New(com *common.Common) *UI {
 	desiredFocus := uiFocusEditor
 	if !com.Config().IsConfigured() {
 		desiredState = uiOnboarding
-	} else if n, _ := config.ProjectNeedsInitialization(com.Config()); n {
-		desiredState = uiInitialize
+	} else if !com.Config().Options.DisableProjectInitPrompt {
+		if n, _ := config.ProjectNeedsInitialization(com.Config()); n {
+			desiredState = uiInitialize
+		}
 	}
 
 	// set initial state
