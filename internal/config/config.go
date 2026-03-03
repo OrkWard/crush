@@ -263,6 +263,7 @@ type Options struct {
 	Progress                  *bool        `json:"progress,omitempty" jsonschema:"description=Show indeterminate progress updates during long operations,default=true"`
 	EnableProjectInitPrompt   bool         `json:"enable_project_init_prompt,omitempty" jsonschema:"description=Enable the project initialization prompt on startup,default=false"`
 	EnableHomeDirCommands     bool         `json:"enable_home_dir_commands,omitempty" jsonschema:"description=Enable loading commands from ~/.crush/commands,default=false"`
+	WorkspaceMode             bool         `json:"workspace_mode,omitempty" jsonschema:"description=Store session data in a centralized location per project instead of ./.crush,default=true"`
 }
 
 type MCPs map[string]MCPConfig

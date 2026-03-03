@@ -23,6 +23,7 @@ import (
 	"github.com/charmbracelet/crush/internal/fsext"
 	"github.com/charmbracelet/crush/internal/home"
 	"github.com/charmbracelet/crush/internal/log"
+	"github.com/charmbracelet/crush/internal/workspace"
 	powernapConfig "github.com/charmbracelet/x/powernap/pkg/config"
 	"github.com/qjebbs/go-jsons"
 )
@@ -44,6 +45,17 @@ func Load(workingDir, dataDir string, debug bool) (*Config, error) {
 
 	if debug {
 		cfg.Options.Debug = true
+	}
+
+	// Apply workspace mode if enabled and no explicit data directory was provided
+	if cfg.Options.WorkspaceMode && dataDir == "" {
+		manager := workspace.NewManager()
+		workspaceDir, err := manager.GetDataDir(workingDir)
+		if err != nil {
+			slog.Warn("Failed to get workspace directory, falling back to default", "error", err)
+		} else {
+			cfg.Options.DataDirectory = workspaceDir
+		}
 	}
 
 	// Setup logs
@@ -393,6 +405,14 @@ func (c *Config) setDefaults(workingDir, dataDir string) {
 
 	if str, ok := os.LookupEnv("CRUSH_DISABLE_DEFAULT_PROVIDERS"); ok {
 		c.Options.DisableDefaultProviders, _ = strconv.ParseBool(str)
+	}
+
+	// WorkspaceMode defaults to true unless explicitly disabled via env var or config
+	if str, ok := os.LookupEnv("CRUSH_WORKSPACE_MODE"); ok {
+		c.Options.WorkspaceMode, _ = strconv.ParseBool(str)
+	} else if !c.Options.WorkspaceMode {
+		// If not set in config and env, default to true
+		c.Options.WorkspaceMode = true
 	}
 
 	if c.Options.Attribution == nil {
