@@ -1584,11 +1584,6 @@ func (m *UI) handleKeyPressMsg(msg tea.KeyPressMsg) tea.Cmd {
 			}
 
 			switch {
-			case key.Matches(msg, m.keyMap.Editor.AddImage):
-				if cmd := m.openFilesDialog(); cmd != nil {
-					cmds = append(cmds, cmd)
-				}
-
 			case key.Matches(msg, m.keyMap.Editor.PasteImage):
 				cmds = append(cmds, m.pasteImageFromClipboard)
 
@@ -2119,7 +2114,6 @@ func (m *UI) FullHelp() [][]key.Binding {
 			binds = append(binds,
 				[]key.Binding{
 					k.Editor.Newline,
-					k.Editor.AddImage,
 					k.Editor.PasteImage,
 					k.Editor.MentionFile,
 					k.Editor.OpenEditor,
@@ -2168,7 +2162,6 @@ func (m *UI) FullHelp() [][]key.Binding {
 				},
 				[]key.Binding{
 					k.Editor.Newline,
-					k.Editor.AddImage,
 					k.Editor.PasteImage,
 					k.Editor.MentionFile,
 					k.Editor.OpenEditor,

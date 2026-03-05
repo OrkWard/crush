@@ -8,7 +8,7 @@ type KeyMap struct {
 		SendMessage key.Binding
 		OpenEditor  key.Binding
 		Newline     key.Binding
-		AddImage    key.Binding
+
 		PasteImage  key.Binding
 		MentionFile key.Binding
 		Commands    key.Binding
@@ -24,8 +24,7 @@ type KeyMap struct {
 	}
 
 	Chat struct {
-		NewSession     key.Binding
-		AddAttachment  key.Binding
+		NewSession key.Binding
 		Cancel         key.Binding
 		Tab            key.Binding
 		Details        key.Binding
@@ -117,10 +116,7 @@ func DefaultKeyMap() KeyMap {
 		// to reflect that.
 		key.WithHelp("ctrl+j", "newline"),
 	)
-	km.Editor.AddImage = key.NewBinding(
-		key.WithKeys("ctrl+f"),
-		key.WithHelp("ctrl+f", "add image"),
-	)
+
 	km.Editor.PasteImage = key.NewBinding(
 		key.WithKeys("ctrl+v"),
 		key.WithHelp("ctrl+v", "paste image from clipboard"),
@@ -156,10 +152,7 @@ func DefaultKeyMap() KeyMap {
 		key.WithKeys("ctrl+n"),
 		key.WithHelp("ctrl+n", "new session"),
 	)
-	km.Chat.AddAttachment = key.NewBinding(
-		key.WithKeys("ctrl+f"),
-		key.WithHelp("ctrl+f", "add attachment"),
-	)
+
 	km.Chat.Cancel = key.NewBinding(
 		key.WithKeys("esc", "alt+esc"),
 		key.WithHelp("esc", "cancel"),
